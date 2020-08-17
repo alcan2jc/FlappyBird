@@ -78,8 +78,8 @@ float gravity = 100.0f;
 //Initialize Pipe
 struct pipe {
 	float xpipe = screenWidth;
-	float wpipe = 10.0f;
-	float gapheight = 10.0f;
+	float wpipe = 10.0;
+	float gapheight = 10.0;
 	float gap = (rand() % screenHeight);
 	float speed = 20;
 };
@@ -242,7 +242,7 @@ int main()
 				pipes.at(i).gap = (rand() % screenHeight);
 			}
 			//draw bottom pipe
-			for (int x = pipes.at(i).xpipe - pipes.at(i).wpipe; x < pipes.at(i).xpipe; x++) {
+			for (int x = (pipes.at(i).xpipe - pipes.at(i).wpipe); x < pipes.at(i).xpipe; x++) {
 				for (int y = pipes.at(i).gap; y < screenHeight; y++) {
 					screen[y * screenWidth + x].Char.UnicodeChar = PIXEL_SOLID;
 					screen[y * screenWidth + x].Attributes = FG_GREEN;
@@ -258,8 +258,8 @@ int main()
 			}
 
 			//draw top pipe
-			for (int x = pipes.at(i).xpipe - pipes.at(i).wpipe; x < pipes.at(i).xpipe; x++) {
-				for (int y = 0; y < pipes.at(i).gap - pipes.at(i).gapheight; y++) {
+			for (int x = (pipes.at(i).xpipe - pipes.at(i).wpipe); x < pipes.at(i).xpipe; x++) {
+				for (int y = 0; y < (pipes.at(i).gap - pipes.at(i).gapheight); y++) {
 					screen[y * screenWidth + x].Char.UnicodeChar = PIXEL_SOLID;
 					screen[y * screenWidth + x].Attributes = FG_GREEN;
 				}
@@ -268,13 +268,12 @@ int main()
 
 		/*pipes*/
 		t++;
-		for (int i = 0; i < pipes.size(); i++) {
-			if (t == 800) {
-				p++;
-				pipe temp;
-				pipes.push_back(temp);
-				t = score;
-			}
+		cout << "t: " << t << endl;
+		if (t == 1000) {
+			p++;
+			pipe temp;
+			pipes.push_back(temp);
+			t = 0;
 		}
 
 		//move all pipes on screen
