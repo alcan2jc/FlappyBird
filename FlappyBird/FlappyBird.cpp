@@ -84,7 +84,7 @@ struct pipe {
 	float speed = 20;
 };
 
-int t = 0;
+float t = 0.0f;
 int p = 0; //iterator for pipe vector
 
 
@@ -199,7 +199,6 @@ int main()
 
 
 	while (game) {
-
 		//Internal system time difference so that speed is the same for all computer speeds
 		tp2 = chrono::system_clock::now();
 		chrono::duration<float> elapsedTime = tp2 - tp1;
@@ -207,12 +206,12 @@ int main()
 		float fElapsedTime = elapsedTime.count();
 
 		//acceleration
-		if (velocity < 1500.0f * fElapsedTime) {
+		if (velocity < 2000.0f * fElapsedTime) {
 			velocity += gravity * fElapsedTime;
 			ypos += velocity * fElapsedTime;
 		}
 		else {
-			ypos += (gravity / 9.0f) * fElapsedTime;
+			ypos += (gravity / 8.0f) * fElapsedTime;
 		}
 
 		//Quit game (ESC)
@@ -267,9 +266,8 @@ int main()
 		}
 
 		/*pipes*/
-		t++;
-		cout << "t: " << t << endl;
-		if (t == 1000) {
+		t += fElapsedTime;
+		if (t >= rand() % 2 + 2) {
 			p++;
 			pipe temp;
 			pipes.push_back(temp);
